@@ -50,10 +50,20 @@ function Game() {
             : row
         )
       );
-    setCurrentGuess((prev) => (prev.length < 5 ? prev + letter : prev));
+
     if (letter == 'Backspace')
-      setCurrentGuess((prev) =>
-        prev.length > 0 ? prev.slice(0, prev.length - 1) : prev
+      setRows((prev) =>
+        prev.map((row, i) =>
+          i === currentRow
+            ? {
+                ...row,
+                letters:
+                  row.letters.length > 0
+                    ? row.letters.slice(0, row.letters.length - 1)
+                    : row.letters,
+              }
+            : row
+        )
       );
   };
 
