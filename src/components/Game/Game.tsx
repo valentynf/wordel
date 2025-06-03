@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Row from '../Row/Row';
 import styles from './Game.module.css';
 
-export type BoxStatus = 'correct' | 'present' | 'default';
+export type BoxStatus = 'correct' | 'present' | 'default' | 'wrong';
 type Row = {
   letters: string[];
   statuses: BoxStatus[];
@@ -67,7 +67,7 @@ function Game() {
     const lettersAnswer: string[] = answer.split('');
     const boxStatuses: BoxStatus[] = lettersGuess
       .map((letter) =>
-        answer.includes(letter.toUpperCase()) ? 'present' : 'default'
+        answer.includes(letter.toUpperCase()) ? 'present' : 'wrong'
       )
       .map((status, i) =>
         lettersGuess[i].toUpperCase() === lettersAnswer[i].toUpperCase()

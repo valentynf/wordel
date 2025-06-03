@@ -1,7 +1,7 @@
 .game-container {
-  background-color: antiquewhite;
+  background-color: #121213;
   width: fit-content;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
