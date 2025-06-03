@@ -1,14 +1,14 @@
 import styles from './LetterBox.module.css';
 
 type LetterBoxProps = {
-  currentLetter: string;
+  letter: string;
 };
 
-function LetterBox({ currentLetter }: LetterBoxProps) {
+function LetterBox({ letter }: LetterBoxProps) {
   return (
     <>
       <div className={styles['letterbox-container']}>
-        <p className={styles['letter']}>{currentLetter.toUpperCase()}</p>
+        <p className={styles['letter']}>{letter.toUpperCase()}</p>
       </div>
     </>
   );

@@ -1,14 +1,19 @@
 import styles from './Row.module.css';
 import LetterBox from '../LetterBox/LetterBox.tsx';
 
-function Row() {
+type RowProps = {
+  wordInput: string;
+};
+
+function Row({ wordInput }: RowProps) {
   return (
     <div className={styles['row-container']}>
-      <LetterBox currentLetter="s" />
-      <LetterBox currentLetter="h" />
-      <LetterBox currentLetter="a" />
-      <LetterBox currentLetter="k" />
-      <LetterBox currentLetter="e" />
+      {wordInput
+        .padEnd(5)
+        .split('')
+        .map((letter, i) => (
+          <LetterBox key={i} letter={letter} />
+        ))}
     </div>
   );
 }

@@ -1,10 +1,10 @@
 // import { useState } from 'react';
-import Row from './components/Row/Row';
+import Game from './components/Game/Game';
 
 function App() {
   return (
     <>
-      <Row />
+      <Game />
     </>
   );
 }
