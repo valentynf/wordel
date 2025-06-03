@@ -1,10 +1,10 @@
 // import { useState } from 'react';
-import LetterBox from './components/LetterBox/LetterBox';
+import LetterBox from './components/LetterBox/LetterBox.tsx';
 
 function App() {
   return (
     <>
-      <LetterBox />
+      <LetterBox currentLetter="a" />
     </>
   );
 }
