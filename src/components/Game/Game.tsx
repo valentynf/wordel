@@ -8,8 +8,7 @@ function Game() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       console.log(e.key);
-      if (e.key == ' ') console.log('SPACE');
-      if (/^[A-Z]$/i.test(e.key)) handleAddLetter(e.key);
+      handleInput(e.key);
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -19,8 +18,14 @@ function Game() {
     };
   }, []);
 
-  const handleAddLetter = (letter: string) => {
-    setCurrentGuess((prev) => (prev.length < 5 ? prev + letter : prev));
+  const handleInput = (letter: string) => {
+    if (letter == ' ') console.log('SPACE');
+    if (/^[A-Z]$/i.test(letter))
+      setCurrentGuess((prev) => (prev.length < 5 ? prev + letter : prev));
+    if (letter == 'Backspace')
+      setCurrentGuess((prev) =>
+        prev.length > 0 ? prev.slice(0, prev.length - 1) : prev
+      );
   };
 
   return (
