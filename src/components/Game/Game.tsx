@@ -3,9 +3,20 @@ import Row from '../Row/Row';
 import styles from './Game.module.css';
 
 export type BoxStatus = 'correct' | 'present' | 'default';
+type Row = {
+  letters: string[];
+  statuses: BoxStatus[];
+};
 
 function Game() {
   const answer = 'SHARK';
+  const [rows, setRows] = useState<Row[]>(
+    Array(6).fill({
+      letters: [],
+      statuses: ['default', 'default', 'default', 'default', 'default'],
+    })
+  );
+  const [currentRowIndex, setCurrentRowIndex] = useState<number>(0);
   const [currentGuess, setCurrentGuess] = useState<string>('');
   const [boxesStatus, setBoxesStatus] = useState<BoxStatus[]>(
     Array(5).fill('default')
@@ -15,18 +26,31 @@ function Game() {
     const handleKeyDown = (e: KeyboardEvent) =>
       e.key === 'Enter' && currentGuess.length === 5
         ? handleSubmit(currentGuess.toUpperCase())
-        : handleInput(e.key);
+        : handleInput(e.key, currentRowIndex);
 
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentGuess]);
+  }, [currentGuess, currentRowIndex]);
 
-  const handleInput = (letter: string) => {
+  const handleInput = (letter: string, currentRow: number) => {
     if (/^[A-Z]$/i.test(letter))
-      setCurrentGuess((prev) => (prev.length < 5 ? prev + letter : prev));
+      setRows((prev) =>
+        prev.map((row, i) =>
+          i === currentRow
+            ? {
+                ...row,
+                letters:
+                  row.letters.length < 5
+                    ? [...row.letters, letter]
+                    : row.letters,
+              }
+            : row
+        )
+      );
+    setCurrentGuess((prev) => (prev.length < 5 ? prev + letter : prev));
     if (letter == 'Backspace')
       setCurrentGuess((prev) =>
         prev.length > 0 ? prev.slice(0, prev.length - 1) : prev
@@ -34,7 +58,6 @@ function Game() {
   };
 
   const handleSubmit = (guess: string) => {
-    // const boxStatuses: BoxStatus[] = Array(5).fill('default');
     const lettersGuess: string[] = guess.split('');
     const lettersAnswer: string[] = answer.split('');
     const boxStatuses: BoxStatus[] = lettersGuess
@@ -51,7 +74,10 @@ function Game() {
 
   return (
     <div className={styles['game-container']}>
-      <Row boxesStatus={boxesStatus} wordInput={currentGuess} />
+      {/* <Row boxesStatus={boxesStatus} wordInput={currentGuess} /> */}
+      {rows.map((row, i) => (
+        <Row key={i} boxStatuses={row.statuses} letters={row.letters} />
+      ))}
     </div>
   );
 }
