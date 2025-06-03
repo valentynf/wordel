@@ -10,7 +10,6 @@ function LetterBox({ letter, status }: LetterBoxProps) {
   return (
     <>
       <div className={`${styles['letterbox-container']} ${styles[status]}`}>
-        {/* <div className={styles['letterbox-container']}> */}
         <p className={styles['letter']}>{letter.toUpperCase()}</p>
       </div>
     </>
@@ -18,4 +17,3 @@ function LetterBox({ letter, status }: LetterBoxProps) {
 }
 
 export default LetterBox;
-// This component renders a letterbox styled div using CSS modules.
