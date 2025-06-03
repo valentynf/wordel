@@ -17,15 +17,11 @@ function Game() {
     })
   );
   const [currentRowIndex, setCurrentRowIndex] = useState<number>(0);
-  const [currentGuess, setCurrentGuess] = useState<string>('');
-  const [boxesStatus, setBoxesStatus] = useState<BoxStatus[]>(
-    Array(5).fill('default')
-  );
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) =>
-      e.key === 'Enter' && currentGuess.length === 5
-        ? handleSubmit(currentGuess.toUpperCase())
+      e.key === 'Enter' && rows[currentRowIndex].letters.length === 5
+        ? handleSubmit(rows[currentRowIndex].letters, currentRowIndex)
         : handleInput(e.key, currentRowIndex);
 
     window.addEventListener('keydown', handleKeyDown);
@@ -33,7 +29,7 @@ function Game() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentGuess, currentRowIndex]);
+  }, [rows, currentRowIndex]);
 
   const handleInput = (letter: string, currentRow: number) => {
     if (/^[A-Z]$/i.test(letter))
@@ -67,24 +63,38 @@ function Game() {
       );
   };
 
-  const handleSubmit = (guess: string) => {
-    const lettersGuess: string[] = guess.split('');
+  const handleSubmit = (lettersGuess: string[], currentRow: number) => {
     const lettersAnswer: string[] = answer.split('');
     const boxStatuses: BoxStatus[] = lettersGuess
-      .map((letter) => (answer.includes(letter) ? 'present' : 'default'))
+      .map((letter) =>
+        answer.includes(letter.toUpperCase()) ? 'present' : 'default'
+      )
       .map((status, i) =>
-        lettersGuess[i] === lettersAnswer[i] ? 'correct' : status
+        lettersGuess[i].toUpperCase() === lettersAnswer[i].toUpperCase()
+          ? 'correct'
+          : status
       );
-    setBoxesStatus(boxStatuses);
 
-    console.log(guess);
+    setRows((prev) =>
+      prev.map((row, i) =>
+        i === currentRow
+          ? {
+              ...row,
+              statuses: boxStatuses,
+            }
+          : row
+      )
+    );
+
+    setCurrentRowIndex((prev) => prev + 1);
+
+    console.log(lettersGuess.join(''));
     console.log(answer);
     console.log(boxStatuses);
   };
 
   return (
     <div className={styles['game-container']}>
-      {/* <Row boxesStatus={boxesStatus} wordInput={currentGuess} /> */}
       {rows.map((row, i) => (
         <Row key={i} boxStatuses={row.statuses} letters={row.letters} />
       ))}
