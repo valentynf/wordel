@@ -1,13 +1,16 @@
+import type { BoxStatus } from '../Game/Game';
 import styles from './LetterBox.module.css';
 
 type LetterBoxProps = {
   letter: string;
+  status: BoxStatus;
 };
 
-function LetterBox({ letter }: LetterBoxProps) {
+function LetterBox({ letter, status }: LetterBoxProps) {
   return (
     <>
-      <div className={styles['letterbox-container']}>
+      <div className={`${styles['letterbox-container']} ${styles[status]}`}>
+        {/* <div className={styles['letterbox-container']}> */}
         <p className={styles['letter']}>{letter.toUpperCase()}</p>
       </div>
     </>

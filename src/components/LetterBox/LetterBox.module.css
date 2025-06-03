@@ -11,3 +11,15 @@
 .letter {
   font-size: 50px;
 }
+
+.correct {
+  background-color: green;
+}
+
+.present {
+  background-color: yellow;
+}
+
+.default {
+  background-color: grey;
+}
