@@ -1,4 +1,4 @@
-import { useGameContext } from '../../context/useGameContext';
+import { useGameContext } from '../../hooks/useGameContext';
 import styles from './StartScreen.module.css';
 
 function StartScreen() {

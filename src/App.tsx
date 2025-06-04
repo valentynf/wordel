@@ -1,7 +1,7 @@
 import Game from './components/Game/Game';
 import StartScreen from './components/StartScreen/StartScreen';
 import EndScreen from './components/EndScreen/EndScreen';
-import { useGameContext } from './context/useGameContext';
+import { useGameContext } from './hooks/useGameContext';
 
 function App() {
   const { state: gameData } = useGameContext();

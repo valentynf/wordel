@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import styles from './Game.module.css';
 import Row from './Row/Row';
-import { useGameContext } from '../../context/useGameContext';
+import { useGameContext } from '../../hooks/useGameContext';
 
 function Game() {
   const { state: gameData, dispatch } = useGameContext();
