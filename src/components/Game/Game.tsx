@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Row from '../Row/Row';
+import Row from './Row/Row';
 import styles from './Game.module.css';
 
 export type BoxStatus = 'correct' | 'present' | 'default' | 'wrong';

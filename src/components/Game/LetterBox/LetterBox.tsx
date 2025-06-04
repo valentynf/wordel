@@ -1,4 +1,4 @@
-import type { BoxStatus } from '../Game/Game';
+import type { BoxStatus } from '../Game';
 import styles from './LetterBox.module.css';
 
 type LetterBoxProps = {
