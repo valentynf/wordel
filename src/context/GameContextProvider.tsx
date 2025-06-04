@@ -91,7 +91,7 @@ function reducer(prevState: GameState, action: GameStateReducerAction) {
   }
 }
 
-export function GameProvider({ children }: { children: ReactNode }) {
+export function GameContextProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
