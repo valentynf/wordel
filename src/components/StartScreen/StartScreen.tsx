@@ -1,10 +1,9 @@
+import { useGameContext } from '../../context/useGameContext';
 import styles from './StartScreen.module.css';
 
-type StartScreenProps = {
-  onStart: () => void;
-};
+function StartScreen() {
+  const { dispatch } = useGameContext();
 
-function StartScreen({ onStart }: StartScreenProps) {
   return (
     <div className={styles['start-screen-container']}>
       <div className={styles['menu-header']}>
@@ -15,7 +14,12 @@ function StartScreen({ onStart }: StartScreenProps) {
         </p>
       </div>
       <div className={styles['menu-container']}>
-        <button className={styles['play-button']} onClick={() => onStart()}>
+        <button
+          className={styles['play-button']}
+          onClick={() =>
+            dispatch({ type: 'set-view', payload: { view: 'game' } })
+          }
+        >
           Play
         </button>
       </div>

@@ -1,13 +1,10 @@
 import { useEffect } from 'react';
-
 import styles from './Game.module.css';
-
 import Row from './Row/Row';
-import useGameState from '../../hooks/useGameState';
-// const answer = 'SHARK';
+import { useGameContext } from '../../context/useGameContext';
 
 function Game() {
-  const [gameData, dispatch] = useGameState();
+  const { state: gameData, dispatch } = useGameContext();
   const { rows, currentRow } = gameData;
 
   useEffect(() => {

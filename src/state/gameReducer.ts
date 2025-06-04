@@ -1,4 +1,3 @@
-import { useReducer } from 'react';
 import type {
   BoxStatus,
   GameState,
@@ -6,7 +5,7 @@ import type {
 } from '../types/appTypes';
 const answer = 'SHARK';
 
-function reducer(prevState: GameState, action: GameStateReducerAction) {
+export function reducer(prevState: GameState, action: GameStateReducerAction) {
   switch (action.type) {
     case 'add-letter': {
       const { letter } = action.payload;
@@ -69,24 +68,22 @@ function reducer(prevState: GameState, action: GameStateReducerAction) {
     case 'next-row': {
       return { ...prevState, currentRow: prevState.currentRow + 1 };
     }
+    case 'set-view': {
+      const { view } = action.payload;
+      return { ...prevState, view: view };
+    }
     default:
       return prevState;
   }
 }
 
-function useGameState() {
-  const [gameData, dispatch] = useReducer(reducer, {
-    view: 'start',
-    rows: Array(6)
-      .fill(0)
-      .map(() => ({
-        letters: [],
-        statuses: Array(5).fill('default' as BoxStatus),
-      })),
-    currentRow: 0,
-  });
-
-  return [gameData, dispatch] as const;
-}
-
-export default useGameState;
+export const initialState: GameState = {
+  view: 'start',
+  rows: Array(6)
+    .fill(0)
+    .map(() => ({
+      letters: [],
+      statuses: Array(5).fill('default' as BoxStatus),
+    })),
+  currentRow: 0,
+};

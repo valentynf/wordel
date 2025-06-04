@@ -1,18 +1,15 @@
-// import { useState } from 'react';
-import { useState } from 'react';
 import Game from './components/Game/Game';
 import StartScreen from './components/StartScreen/StartScreen';
 import EndScreen from './components/EndScreen/EndScreen';
-import type { View } from './types/appTypes';
-// import useGameState from './hooks/useGameState';
+import { useGameContext } from './context/useGameContext';
 
 function App() {
-  const [view, setView] = useState<View>('start');
-  // const [view] = useGameState();
+  const { state: gameData } = useGameContext();
+  const { view } = gameData;
 
   return (
     <>
-      {view === 'start' && <StartScreen onStart={() => setView('game')} />}
+      {view === 'start' && <StartScreen />}
       {view === 'game' && <Game />}
       {view === 'end' && <EndScreen />}
     </>
