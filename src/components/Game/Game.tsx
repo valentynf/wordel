@@ -86,11 +86,8 @@ function Game() {
       )
     );
 
+    // win / loss logic goes here
     setCurrentRowIndex((prev) => prev + 1);
-
-    console.log(lettersGuess.join(''));
-    console.log(answer);
-    console.log(boxStatuses);
   };
 
   return (
