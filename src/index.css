@@ -1,6 +1,15 @@
 :root {
   background-color: #121213;
-  display: flex;
-  justify-content: center;
-  padding: 100px;
+}
+
+body {
+  margin: 0;
+}
+
+@font-face {
+  font-family: 'Libre Franklin Variable';
+  src: url('/fonts/LibreFranklin-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
 }

@@ -1,2 +1,51 @@
 .start-screen-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #e3e3e1;
+  width: 100vw;
+  height: 100vh;
+  align-content: center;
+  justify-content: center;
+}
+
+.menu-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-title {
+  font-family: 'Libre Franklin Variable', sans-serif;
+  font-weight: 800;
+  font-size: 38px;
+  transform: scaleX(0.85); /* 80% width */
+  display: inline-block;
+  margin: 24px 0 0 0;
+}
+
+.game-description {
+  font-family: 'Libre Franklin Variable', sans-serif;
+  font-size: 24px;
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.play-button {
+  font-family: 'Libre Franklin Variable', sans-serif;
+  font-weight: 400;
+  height: 60px;
+  width: 170px;
+  font-size: 19px;
+  background-color: black;
+  color: white;
+  border-radius: 30px;
+}
+
+button:hover {
+  cursor: pointer;
 }
