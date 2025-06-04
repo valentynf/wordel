@@ -3,11 +3,12 @@ import { useState } from 'react';
 import Game from './components/Game/Game';
 import StartScreen from './components/StartScreen/StartScreen';
 import EndScreen from './components/EndScreen/EndScreen';
-
-type View = 'start' | 'game' | 'end';
+import type { View } from './types/appTypes';
+// import useGameState from './hooks/useGameState';
 
 function App() {
   const [view, setView] = useState<View>('start');
+  // const [view] = useGameState();
 
   return (
     <>

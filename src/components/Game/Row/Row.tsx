@@ -1,6 +1,6 @@
 import styles from './Row.module.css';
 import LetterBox from '../LetterBox/LetterBox.tsx';
-import type { BoxStatus } from '../Game.tsx';
+import type { BoxStatus } from '../../../types/appTypes.ts';
 
 type RowProps = {
   letters: string[];

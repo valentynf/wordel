@@ -1,98 +1,40 @@
-import { useEffect, useState } from 'react';
-import Row from './Row/Row';
+import { useEffect } from 'react';
+
 import styles from './Game.module.css';
 
-export type BoxStatus = 'correct' | 'present' | 'default' | 'wrong';
-type Row = {
-  letters: string[];
-  statuses: BoxStatus[];
-};
+import Row from './Row/Row';
+import useGameState from '../../hooks/useGameState';
+// const answer = 'SHARK';
 
 function Game() {
-  const answer = 'SHARK';
-  const [rows, setRows] = useState<Row[]>(
-    Array(6).fill({
-      letters: [],
-      statuses: ['default', 'default', 'default', 'default', 'default'],
-    })
-  );
-  const [currentRowIndex, setCurrentRowIndex] = useState<number>(0);
+  const [gameData, dispatch] = useGameState();
+  const { rows, currentRow } = gameData;
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) =>
-      e.key === 'Enter' && rows[currentRowIndex].letters.length === 5
-        ? handleSubmit(rows[currentRowIndex].letters, currentRowIndex)
-        : handleInput(e.key, currentRowIndex);
+    const handleKeyDown = (e: KeyboardEvent) => handleInput(e.key);
+
+    const handleInput = (input: string) => {
+      if (input === 'Enter' && rows[currentRow].letters.length === 5) {
+        dispatch({ type: 'submit-guess' });
+        if (currentRow < 5) dispatch({ type: 'next-row' });
+      }
+
+      if (/^[A-Z]$/i.test(input))
+        dispatch({ type: 'add-letter', payload: { letter: input } });
+
+      if (input === 'Backspace') dispatch({ type: 'remove-letter' });
+    };
 
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [rows, currentRowIndex]);
-
-  const handleInput = (letter: string, currentRow: number) => {
-    if (/^[A-Z]$/i.test(letter))
-      setRows((prev) =>
-        prev.map((row, i) =>
-          i === currentRow
-            ? {
-                ...row,
-                letters:
-                  row.letters.length < 5
-                    ? [...row.letters, letter]
-                    : row.letters,
-              }
-            : row
-        )
-      );
-
-    if (letter == 'Backspace')
-      setRows((prev) =>
-        prev.map((row, i) =>
-          i === currentRow
-            ? {
-                ...row,
-                letters:
-                  row.letters.length > 0
-                    ? row.letters.slice(0, row.letters.length - 1)
-                    : row.letters,
-              }
-            : row
-        )
-      );
-  };
-
-  const handleSubmit = (lettersGuess: string[], currentRow: number) => {
-    const lettersAnswer: string[] = answer.split('');
-    const boxStatuses: BoxStatus[] = lettersGuess
-      .map((letter) =>
-        answer.includes(letter.toUpperCase()) ? 'present' : 'wrong'
-      )
-      .map((status, i) =>
-        lettersGuess[i].toUpperCase() === lettersAnswer[i].toUpperCase()
-          ? 'correct'
-          : status
-      );
-
-    setRows((prev) =>
-      prev.map((row, i) =>
-        i === currentRow
-          ? {
-              ...row,
-              statuses: boxStatuses,
-            }
-          : row
-      )
-    );
-
-    // win / loss logic goes here
-    setCurrentRowIndex((prev) => prev + 1);
-  };
+  }, [currentRow, dispatch, rows]);
 
   return (
     <div className={styles['game-container']}>
-      {rows.map((row, i) => (
+      {gameData.rows.map((row, i) => (
         <Row key={i} boxStatuses={row.statuses} letters={row.letters} />
       ))}
     </div>
