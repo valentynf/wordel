@@ -10,7 +10,7 @@ import type {
   GameStateReducerAction,
 } from '../types/appTypes';
 
-export const GameContext = createContext<
+const GameContext = createContext<
   { state: GameState; dispatch: Dispatch<GameStateReducerAction> } | undefined
 >(undefined);
 
@@ -107,4 +107,4 @@ export function GameContextProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export default GameContextProvider;
+export default GameContext;
