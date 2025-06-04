@@ -1,10 +1,18 @@
-import { useReducer, type ReactNode } from 'react';
-import GameContext from './GameContext';
+import {
+  createContext,
+  useReducer,
+  type Dispatch,
+  type ReactNode,
+} from 'react';
 import type {
   BoxStatus,
   GameState,
   GameStateReducerAction,
 } from '../types/appTypes';
+
+export const GameContext = createContext<
+  { state: GameState; dispatch: Dispatch<GameStateReducerAction> } | undefined
+>(undefined);
 
 const answer = 'SHARK';
 
@@ -19,7 +27,10 @@ const initialState: GameState = {
   currentRow: 0,
 };
 
-function reducer(prevState: GameState, action: GameStateReducerAction) {
+function reducer(
+  prevState: GameState,
+  action: GameStateReducerAction
+): GameState {
   switch (action.type) {
     case 'add-letter': {
       const { letter } = action.payload;
@@ -34,9 +45,9 @@ function reducer(prevState: GameState, action: GameStateReducerAction) {
         ),
       };
     }
+
     case 'remove-letter': {
       const { currentRow, rows } = prevState;
-
       if (rows[currentRow].letters.length < 1) return prevState;
 
       return {
@@ -51,11 +62,11 @@ function reducer(prevState: GameState, action: GameStateReducerAction) {
         ),
       };
     }
+
     case 'submit-guess': {
       const { currentRow, rows } = prevState;
-
-      const lettersAnswer: string[] = answer.split('');
-      const lettersGuess: string[] = rows[currentRow].letters;
+      const lettersAnswer = answer.split('');
+      const lettersGuess = rows[currentRow].letters;
 
       const boxStatuses: BoxStatus[] = lettersGuess
         .map((letter) =>
@@ -70,22 +81,17 @@ function reducer(prevState: GameState, action: GameStateReducerAction) {
       return {
         ...prevState,
         rows: rows.map((row, i) =>
-          i === currentRow
-            ? {
-                ...row,
-                statuses: boxStatuses,
-              }
-            : row
+          i === currentRow ? { ...row, statuses: boxStatuses } : row
         ),
       };
     }
-    case 'next-row': {
+
+    case 'next-row':
       return { ...prevState, currentRow: prevState.currentRow + 1 };
-    }
-    case 'set-view': {
-      const { view } = action.payload;
-      return { ...prevState, view: view };
-    }
+
+    case 'set-view':
+      return { ...prevState, view: action.payload.view };
+
     default:
       return prevState;
   }
@@ -100,3 +106,5 @@ export function GameContextProvider({ children }: { children: ReactNode }) {
     </GameContext.Provider>
   );
 }
+
+export default GameContextProvider;
