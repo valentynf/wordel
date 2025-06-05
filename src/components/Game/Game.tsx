@@ -8,19 +8,16 @@ function Game() {
   const { rows, currentRow } = gameData;
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => handleInput(e.key);
-
     const handleInput = (input: string) => {
       if (input === 'Enter' && rows[currentRow].letters.length === 5) {
         dispatch({ type: 'submit-guess' });
         if (currentRow < 5) dispatch({ type: 'next-row' });
       }
-
       if (/^[A-Z]$/i.test(input))
         dispatch({ type: 'add-letter', payload: { letter: input } });
-
       if (input === 'Backspace') dispatch({ type: 'remove-letter' });
     };
+    const handleKeyDown = (e: KeyboardEvent) => handleInput(e.key);
 
     window.addEventListener('keydown', handleKeyDown);
 

@@ -5,6 +5,7 @@ export type RowType = {
   statuses: BoxStatus[];
 };
 export type GameState = {
+  answer: string;
   view: View;
   rows: RowType[];
   currentRow: number;

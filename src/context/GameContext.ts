@@ -5,9 +5,8 @@ import type {
   GameStateReducerAction,
 } from '../types/appTypes';
 
-const answer = 'SHARK';
-
 export const initialState: GameState = {
+  answer: 'SHARK',
   view: 'start',
   rows: Array(6)
     .fill(0)
@@ -39,6 +38,7 @@ export function reducer(
 
     case 'remove-letter': {
       const { currentRow, rows } = prevState;
+
       if (rows[currentRow].letters.length < 1) return prevState;
 
       return {
@@ -55,10 +55,9 @@ export function reducer(
     }
 
     case 'submit-guess': {
-      const { currentRow, rows } = prevState;
+      const { currentRow, rows, answer } = prevState;
       const lettersAnswer = answer.split('');
       const lettersGuess = rows[currentRow].letters;
-
       const boxStatuses: BoxStatus[] = lettersGuess
         .map((letter) =>
           answer.includes(letter.toUpperCase()) ? 'present' : 'wrong'
