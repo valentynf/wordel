@@ -2,12 +2,15 @@ import { useEffect } from 'react';
 import styles from './Game.module.css';
 import Row from './Row/Row';
 import { useGameContext } from '../../hooks/useGameContext';
+import useRandomWord from '../../hooks/useRandomWord';
 
 function Game() {
   const { state: gameData, dispatch } = useGameContext();
   const { rows, currentRow, hasWon } = gameData;
+  const { word: answer } = useRandomWord();
 
   useEffect(() => {
+    dispatch({ type: 'set-answer', payload: { answer: answer } });
     const handleInput = (input: string) => {
       if (input === 'Enter' && rows[currentRow].letters.length === 5) {
         dispatch({ type: 'submit-guess' });
@@ -24,7 +27,7 @@ function Game() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentRow, dispatch, rows, hasWon]);
+  }, [currentRow, dispatch, rows, hasWon, answer]);
 
   return (
     <div className={styles['game-container']}>

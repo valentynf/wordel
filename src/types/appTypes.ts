@@ -31,4 +31,8 @@ export type GameStateReducerAction =
     }
   | {
       type: 'try-again';
+    }
+  | {
+      type: 'set-answer';
+      payload: { answer: string };
     };

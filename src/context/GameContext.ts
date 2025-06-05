@@ -61,7 +61,9 @@ export function reducer(
       const lettersGuess = rows[currentRow].letters;
       const boxStatuses: BoxStatus[] = lettersGuess
         .map((letter) =>
-          answer.includes(letter.toUpperCase()) ? 'present' : 'wrong'
+          answer.toUpperCase().includes(letter.toUpperCase())
+            ? 'present'
+            : 'wrong'
         )
         .map((status, i) =>
           lettersGuess[i].toUpperCase() === lettersAnswer[i].toUpperCase()
@@ -90,6 +92,10 @@ export function reducer(
 
     case 'try-again':
       return { ...initialState, view: 'game' };
+    case 'set-answer': {
+      const { answer } = action.payload;
+      return { ...prevState, answer: answer };
+    }
 
     default:
       return prevState;
