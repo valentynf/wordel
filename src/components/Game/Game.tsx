@@ -5,7 +5,7 @@ import { useGameContext } from '../../hooks/useGameContext';
 
 function Game() {
   const { state: gameData, dispatch } = useGameContext();
-  const { rows, currentRow } = gameData;
+  const { rows, currentRow, hasWon } = gameData;
 
   useEffect(() => {
     const handleInput = (input: string) => {
@@ -24,7 +24,7 @@ function Game() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentRow, dispatch, rows]);
+  }, [currentRow, dispatch, rows, hasWon]);
 
   return (
     <div className={styles['game-container']}>

@@ -5,6 +5,7 @@ export type RowType = {
   statuses: BoxStatus[];
 };
 export type GameState = {
+  hasWon: boolean;
   answer: string;
   view: View;
   rows: RowType[];
@@ -29,5 +30,5 @@ export type GameStateReducerAction =
       type: 'submit-guess';
     }
   | {
-      type: 'reset-game';
+      type: 'try-again';
     };

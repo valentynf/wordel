@@ -6,6 +6,7 @@ import type {
 } from '../types/appTypes';
 
 export const initialState: GameState = {
+  hasWon: false,
   answer: 'SHARK',
   view: 'start',
   rows: Array(6)
@@ -67,9 +68,14 @@ export function reducer(
             ? 'correct'
             : status
         );
+      const isRightAnswer: boolean = boxStatuses.every(
+        (status) => status === 'correct'
+      );
 
       return {
         ...prevState,
+        hasWon: isRightAnswer ? true : false,
+        view: currentRow === 5 || isRightAnswer ? 'end' : prevState.view,
         rows: rows.map((row, i) =>
           i === currentRow ? { ...row, statuses: boxStatuses } : row
         ),
@@ -81,6 +87,9 @@ export function reducer(
 
     case 'set-view':
       return { ...prevState, view: action.payload.view };
+
+    case 'try-again':
+      return { ...initialState, view: 'game' };
 
     default:
       return prevState;
