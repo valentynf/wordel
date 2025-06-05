@@ -1,18 +1,10 @@
-import {
-  createContext,
-  useReducer,
-  type Dispatch,
-  type ReactNode,
-} from 'react';
+import { useReducer, type ReactNode } from 'react';
 import type {
   BoxStatus,
   GameState,
   GameStateReducerAction,
 } from '../types/appTypes';
-
-const GameContext = createContext<
-  { state: GameState; dispatch: Dispatch<GameStateReducerAction> } | undefined
->(undefined);
+import GameContext from './GameContext';
 
 const answer = 'SHARK';
 
@@ -97,7 +89,7 @@ function reducer(
   }
 }
 
-export function GameContextProvider({ children }: { children: ReactNode }) {
+function GameContextProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
@@ -107,4 +99,4 @@ export function GameContextProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export default GameContext;
+export default GameContextProvider;
