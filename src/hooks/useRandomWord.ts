@@ -3,6 +3,8 @@ import { fetchRandomWord } from '../api/wordsApi';
 
 function useRandomWord() {
   const [word, setWord] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   useEffect(() => {
     const fetchWord = async () => {
       try {
@@ -11,13 +13,15 @@ function useRandomWord() {
           setWord(randomWord);
         }
       } catch (err) {
-        console.error('Could not fetch a word', err);
+        console.log(err);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchWord();
   }, []);
 
-  return { word };
+  return { word, isLoading };
 }
 
 export default useRandomWord;

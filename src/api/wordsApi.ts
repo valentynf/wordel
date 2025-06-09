@@ -1,4 +1,5 @@
 import { GET_WORD_API_URL } from '../config';
+import { getCheckWordApiUrl } from '../helper';
 
 const apiKey = import.meta.env.VITE_GET_WORD_API_KEY;
 
@@ -8,7 +9,23 @@ export const fetchRandomWord = async (): Promise<string | undefined> => {
     const data = await response.json();
     return data.word;
   } catch (err) {
-    console.error(`Couldn't fetch a random word`, err);
+    console.error(`Could not fetch a random word`, err);
+    throw err;
+  }
+};
+
+export const checkIfRealWord = async (
+  word: string
+): Promise<boolean | undefined> => {
+  try {
+    const response = await fetch(
+      `${getCheckWordApiUrl(word)}&api_key=${apiKey}`
+    );
+    const data = await response.json();
+    const isValid = !!data[0]?.id;
+    return isValid ? true : false;
+  } catch (err) {
+    console.error(`Could not check the word`, err);
     throw err;
   }
 };
