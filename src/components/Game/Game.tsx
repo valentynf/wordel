@@ -3,6 +3,7 @@ import styles from './Game.module.css';
 import Row from './Row/Row';
 import { useGameContext } from '../../hooks/useGameContext';
 import useRandomWord from '../../hooks/useRandomWord';
+import { checkIfRealWord } from '../../api/wordsApi';
 
 function Game() {
   const { state: gameData, dispatch } = useGameContext();
@@ -11,8 +12,11 @@ function Game() {
 
   useEffect(() => {
     dispatch({ type: 'set-answer', payload: { answer: answer } });
-    const handleInput = (input: string) => {
+    const handleInput = async (input: string) => {
       if (input === 'Enter' && rows[currentRow].letters.length === 5) {
+        const currentGuess = rows[currentRow].letters.join('');
+        const isReal = await checkIfRealWord(currentGuess);
+        if (!isReal) return;
         dispatch({ type: 'submit-guess' });
         if (currentRow < 5) dispatch({ type: 'next-row' });
       }
