@@ -1,10 +1,10 @@
-import { GET_WORD_API_KEY, GET_WORD_API_URL } from '../config';
+import { GET_WORD_API_URL } from '../config';
+
+const apiKey = import.meta.env.VITE_GET_WORD_API_KEY;
 
 export const fetchRandomWord = async (): Promise<string | undefined> => {
   try {
-    const response = await fetch(
-      `${GET_WORD_API_URL}&api_key=${GET_WORD_API_KEY}`
-    );
+    const response = await fetch(`${GET_WORD_API_URL}&api_key=${apiKey}`);
     const data = await response.json();
     return data.word;
   } catch (err) {
