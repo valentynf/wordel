@@ -6,7 +6,7 @@ import type {
 } from '../types/appTypes';
 
 export const initialState: GameState = {
-  hasWon: false,
+  hasWon: false, // do you really need this?
   answer: 'SHARK',
   view: 'start',
   rows: Array(6)

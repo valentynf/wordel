@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Game.module.css';
 import Row from './Row/Row';
 import { useGameContext } from '../../hooks/useGameContext';
@@ -7,18 +7,30 @@ import { checkIfRealWord } from '../../api/wordsApi';
 
 function Game() {
   const { state: gameData, dispatch } = useGameContext();
-  const { rows, currentRow, hasWon } = gameData;
-  const { word: answer } = useRandomWord();
+  const { rows, currentRow } = gameData;
+  const { word: answer, isLoading: isGettingWord } = useRandomWord();
+  const [isCheckingWord, setIsCheckingWord] = useState<boolean>(false);
 
   useEffect(() => {
     dispatch({ type: 'set-answer', payload: { answer: answer } });
+  }, [answer, dispatch]);
+
+  useEffect(() => {
     const handleInput = async (input: string) => {
-      if (input === 'Enter' && rows[currentRow].letters.length === 5) {
-        const currentGuess = rows[currentRow].letters.join('');
-        const isReal = await checkIfRealWord(currentGuess);
-        if (!isReal) return;
-        dispatch({ type: 'submit-guess' });
-        if (currentRow < 5) dispatch({ type: 'next-row' });
+      if (isGettingWord || isCheckingWord) return;
+      const currentGuess = rows[currentRow].letters.join('');
+      if (input === 'Enter' && currentGuess.length === 5) {
+        try {
+          setIsCheckingWord(true);
+          const isReal = await checkIfRealWord(currentGuess);
+          if (!isReal) return;
+          dispatch({ type: 'submit-guess' });
+          if (currentRow < 5) dispatch({ type: 'next-row' });
+        } catch (err) {
+          console.log(err);
+        } finally {
+          setIsCheckingWord(false);
+        }
       }
       if (/^[A-Z]$/i.test(input))
         dispatch({ type: 'add-letter', payload: { letter: input } });
@@ -31,7 +43,7 @@ function Game() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentRow, dispatch, rows, hasWon, answer]);
+  }, [currentRow, dispatch, rows, isCheckingWord, isGettingWord]);
 
   return (
     <div className={styles['game-container']}>
