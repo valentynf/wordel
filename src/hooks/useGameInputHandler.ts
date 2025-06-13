@@ -1,12 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, type Dispatch, type SetStateAction } from 'react';
 import { checkIfRealWord } from '../api/wordsApi';
 import { useGameContext } from './useGameContext';
 
-function useGameInputHandler(isGettingWord: boolean) {
+function useGameInputHandler(
+  isGettingWord: boolean,
+  isCheckingWord: boolean,
+  setIsCheckingWord: Dispatch<SetStateAction<boolean>>
+) {
   const { state: gameData, dispatch } = useGameContext();
   const { rows, currentRow } = gameData;
   const isGettingWordRef = useRef(isGettingWord);
-  const [isCheckingWord, setIsCheckingWord] = useState<boolean>(false);
+  // const [isCheckingWord, setIsCheckingWord] = useState<boolean>(false);
 
   useEffect(() => {
     isGettingWordRef.current = isGettingWord;
@@ -39,7 +43,7 @@ function useGameInputHandler(isGettingWord: boolean) {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentRow, dispatch, rows, isCheckingWord]);
+  }, [currentRow, dispatch, rows, isCheckingWord, setIsCheckingWord]);
 }
 
 export default useGameInputHandler;

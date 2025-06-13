@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Game.module.css';
 import Row from './Row/Row';
 import { useGameContext } from '../../hooks/useGameContext';
@@ -8,8 +8,9 @@ import useGameInputHandler from '../../hooks/useGameInputHandler';
 function Game() {
   const { state: gameData, dispatch } = useGameContext();
   const { word: answer, isLoading: isGettingWord } = useRandomWord();
+  const [isCheckingWord, setIsCheckingWord] = useState<boolean>(false);
 
-  useGameInputHandler(isGettingWord);
+  useGameInputHandler(isGettingWord, isCheckingWord, setIsCheckingWord);
 
   useEffect(() => {
     dispatch({ type: 'set-answer', payload: { answer: answer } });
