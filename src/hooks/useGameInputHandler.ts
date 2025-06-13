@@ -10,7 +10,6 @@ function useGameInputHandler(
   const { state: gameData, dispatch } = useGameContext();
   const { rows, currentRow } = gameData;
   const isGettingWordRef = useRef(isGettingWord);
-  // const [isCheckingWord, setIsCheckingWord] = useState<boolean>(false);
 
   useEffect(() => {
     isGettingWordRef.current = isGettingWord;
