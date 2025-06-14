@@ -61,17 +61,27 @@ export function reducer(
       const lettersGuess = rows[currentRow].letters;
       const isRightGuess =
         answer.toLowerCase() === lettersGuess.join('').toLowerCase();
-      const boxStatuses: BoxStatus[] = lettersGuess
-        .map((letter) =>
-          answer.toUpperCase().includes(letter.toUpperCase())
-            ? 'present'
-            : 'wrong'
-        )
-        .map((status, i) =>
-          lettersGuess[i].toUpperCase() === lettersAnswer[i].toUpperCase()
-            ? 'correct'
-            : status
-        );
+
+      const boxStatuses: BoxStatus[] = Array(5).fill('wrong');
+
+      const lettersRecord: Record<string, number> = {};
+      lettersAnswer.forEach((char) => {
+        lettersRecord[char] = (lettersRecord[char] || 0) + 1;
+      });
+
+      lettersGuess.forEach((char, i) => {
+        if (char === lettersAnswer[i]) {
+          boxStatuses[i] = 'correct';
+          lettersRecord[char]--;
+        }
+      });
+
+      lettersGuess.forEach((char, i) => {
+        if (boxStatuses[i] !== 'correct' && lettersRecord[char] > 0) {
+          boxStatuses[i] = 'present';
+          lettersRecord[char]--;
+        }
+      });
 
       return {
         ...prevState,
