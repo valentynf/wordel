@@ -17,9 +17,6 @@ export type GameStateReducerAction =
       payload: { letter: string };
     }
   | {
-      type: 'next-row';
-    }
-  | {
       type: 'remove-letter';
     }
   | {

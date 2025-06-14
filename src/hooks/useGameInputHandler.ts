@@ -8,7 +8,7 @@ function useGameInputHandler(
   setIsCheckingWord: Dispatch<SetStateAction<boolean>>
 ) {
   const { state: gameData, dispatch } = useGameContext();
-  const { rows, currentRow } = gameData;
+  const { rows, currentRow, answer } = gameData;
   const isGettingWordRef = useRef(isGettingWord);
 
   useEffect(() => {
@@ -20,12 +20,16 @@ function useGameInputHandler(
       if (isGettingWordRef.current || isCheckingWord) return;
       const currentGuess = rows[currentRow].letters.join('');
       if (input === 'Enter' && currentGuess.length === 5) {
+        if (currentGuess.toLowerCase() === answer.toLowerCase()) {
+          dispatch({ type: 'submit-guess' });
+          return;
+        }
+
         try {
           setIsCheckingWord(true);
           const isReal = await checkIfRealWord(currentGuess);
           if (!isReal) return;
           dispatch({ type: 'submit-guess' });
-          if (currentRow < 5) dispatch({ type: 'next-row' });
         } catch (err) {
           console.log(err);
         } finally {

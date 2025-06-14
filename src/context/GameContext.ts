@@ -55,27 +55,10 @@ export function reducer(
       };
     }
 
-    // omit checking word in dictinary if it's a right guess!!!
     case 'submit-guess': {
       const { currentRow, rows, answer } = prevState;
       const lettersAnswer = answer.split('');
       const lettersGuess = rows[currentRow].letters;
-      // console.log('Guess:', lettersGuess.join(''));
-      // console.log('Answer:', answer);
-
-      // if (answer.toUpperCase() === lettersGuess.join('').toUpperCase()) {
-      //   console.log('in if!');
-      //   return {
-      //     ...prevState,
-      //     hasWon: true,
-      //     view: 'end',
-      //     rows: rows.map((row, i) =>
-      //       i === currentRow
-      //         ? { ...row, statuses: Array(5).fill('correct' as BoxStatus) }
-      //         : row
-      //     ),
-      //   };
-      // }
       const boxStatuses: BoxStatus[] = lettersGuess
         .map((letter) =>
           answer.toUpperCase().includes(letter.toUpperCase())
@@ -87,22 +70,20 @@ export function reducer(
             ? 'correct'
             : status
         );
-      const isRightAnswer: boolean = boxStatuses.every(
+      const isRightGuess: boolean = boxStatuses.every(
         (status) => status === 'correct'
       );
 
       return {
         ...prevState,
-        hasWon: isRightAnswer ? true : false,
-        view: currentRow === 5 || isRightAnswer ? 'end' : prevState.view,
+        currentRow: currentRow < 5 ? currentRow + 1 : currentRow,
+        hasWon: isRightGuess ? true : false,
+        view: currentRow === 5 || isRightGuess ? 'end' : prevState.view,
         rows: rows.map((row, i) =>
           i === currentRow ? { ...row, statuses: boxStatuses } : row
         ),
       };
     }
-
-    case 'next-row':
-      return { ...prevState, currentRow: prevState.currentRow + 1 };
 
     case 'set-view':
       return { ...prevState, view: action.payload.view };
