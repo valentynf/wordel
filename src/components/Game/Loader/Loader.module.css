@@ -1,4 +1,23 @@
 .loader-container {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.loader-message {
+  font-family: 'Libre Franklin Variable', sans-serif;
   font-size: 30px;
   color: aliceblue;
 }

@@ -55,10 +55,27 @@ export function reducer(
       };
     }
 
+    // omit checking word in dictinary if it's a right guess!!!
     case 'submit-guess': {
       const { currentRow, rows, answer } = prevState;
       const lettersAnswer = answer.split('');
       const lettersGuess = rows[currentRow].letters;
+      // console.log('Guess:', lettersGuess.join(''));
+      // console.log('Answer:', answer);
+
+      // if (answer.toUpperCase() === lettersGuess.join('').toUpperCase()) {
+      //   console.log('in if!');
+      //   return {
+      //     ...prevState,
+      //     hasWon: true,
+      //     view: 'end',
+      //     rows: rows.map((row, i) =>
+      //       i === currentRow
+      //         ? { ...row, statuses: Array(5).fill('correct' as BoxStatus) }
+      //         : row
+      //     ),
+      //   };
+      // }
       const boxStatuses: BoxStatus[] = lettersGuess
         .map((letter) =>
           answer.toUpperCase().includes(letter.toUpperCase())
