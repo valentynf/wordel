@@ -19,10 +19,10 @@ export const checkIfRealWord = async (
 ): Promise<boolean | undefined> => {
   try {
     const response = await fetch(
-      `${getCheckWordApiUrl(word)}&api_key=${apiKey}`
+      `${getCheckWordApiUrl(word.toLowerCase())}&api_key=${apiKey}`
     );
     const data = await response.json();
-    const isValid = !!data[0]?.word; //word property only exists if the word is in dictionary
+    const isValid = !!data[0]?.word; //word property only exists if the word is on a dictionary
     return isValid ? true : false;
   } catch (err) {
     console.error(`Could not check the word`, err);

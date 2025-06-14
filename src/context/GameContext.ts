@@ -59,6 +59,8 @@ export function reducer(
       const { currentRow, rows, answer } = prevState;
       const lettersAnswer = answer.split('');
       const lettersGuess = rows[currentRow].letters;
+      const isRightGuess =
+        answer.toLowerCase() === lettersGuess.join('').toLowerCase();
       const boxStatuses: BoxStatus[] = lettersGuess
         .map((letter) =>
           answer.toUpperCase().includes(letter.toUpperCase())
@@ -70,9 +72,6 @@ export function reducer(
             ? 'correct'
             : status
         );
-      const isRightGuess: boolean = boxStatuses.every(
-        (status) => status === 'correct'
-      );
 
       return {
         ...prevState,
