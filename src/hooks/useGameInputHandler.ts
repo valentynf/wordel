@@ -37,7 +37,10 @@ function useGameInputHandler(
         }
       }
       if (/^[A-Z]$/i.test(input))
-        dispatch({ type: 'add-letter', payload: { letter: input } });
+        dispatch({
+          type: 'add-letter',
+          payload: { letter: input.toLowerCase() },
+        });
       if (input === 'Backspace') dispatch({ type: 'remove-letter' });
     };
     const handleKeyDown = (e: KeyboardEvent) => handleInput(e.key);

@@ -14,7 +14,7 @@ function Game() {
   useGameInputHandler(isGettingWord, isCheckingWord, setIsCheckingWord);
 
   useEffect(() => {
-    dispatch({ type: 'set-answer', payload: { answer: answer } });
+    dispatch({ type: 'set-answer', payload: { answer: answer.toLowerCase() } });
   }, [answer, dispatch]);
 
   return (

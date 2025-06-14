@@ -6,7 +6,7 @@ import type {
 } from '../types/appTypes';
 
 export const initialState: GameState = {
-  hasWon: false, // do you really need this?
+  hasWon: false,
   answer: 'SHARK',
   view: 'start',
   rows: Array(6)
@@ -57,13 +57,10 @@ export function reducer(
 
     case 'submit-guess': {
       const { currentRow, rows, answer } = prevState;
-      const lettersAnswer = answer.split('');
-      const lettersGuess = rows[currentRow].letters;
-      const isRightGuess =
-        answer.toLowerCase() === lettersGuess.join('').toLowerCase();
-
+      const lettersAnswer: string[] = answer.split('');
+      const lettersGuess: string[] = rows[currentRow].letters;
+      const isRightGuess: boolean = answer === lettersGuess.join('');
       const boxStatuses: BoxStatus[] = Array(5).fill('wrong');
-
       const lettersRecord: Record<string, number> = {};
       lettersAnswer.forEach((char) => {
         lettersRecord[char] = (lettersRecord[char] || 0) + 1;
@@ -99,6 +96,7 @@ export function reducer(
 
     case 'try-again':
       return { ...initialState, view: 'game' };
+
     case 'set-answer': {
       const { answer } = action.payload;
       return { ...prevState, answer: answer };
