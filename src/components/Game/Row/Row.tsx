@@ -24,7 +24,9 @@ function Row({ letters, boxStatuses, shouldShake }: RowProps) {
             key={i}
             letter={letter}
             status={boxStatuses[i]}
-            flipped={boxStatuses[i] !== 'default'}
+            flipped={
+              boxStatuses[i] !== 'default' && boxStatuses[i] !== 'highlighted'
+            }
             flipDelay={i * 0.4}
           />
         ))}
