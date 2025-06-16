@@ -13,7 +13,7 @@ Wordel is a clone of a popular Wordle game from NY Times. Built using React, Typ
 
 ## Getting Started
 
-To get started with GeoPair, follow these steps:
+  To get started with Wordel, follow these steps:
 
 1. Clone the repository to your local machine:
 
@@ -47,11 +47,11 @@ This will launch the game in your default web browser.
 
 - After each guess, the color of the tiles will change to show how close your guess was to the word:
 
-🟩 Green: Correct letter in the correct position.
+    🟩 Green: Correct letter in the correct position.
 
-🟨 Yellow: Correct letter in the wrong position.
+    🟨 Yellow: Correct letter in the wrong position.
 
-⬛ Gray: Letter not in the word at all.
+    ⬛ Gray: Letter not in the word at all.
 
 - Only real English words are accepted.
 
