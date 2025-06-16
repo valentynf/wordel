@@ -20,6 +20,7 @@ function Row({ letters, boxStatuses }: RowProps) {
             letter={letter}
             status={boxStatuses[i]}
             flipped={boxStatuses[i] !== 'default'}
+            flipDelay={i * 0.4}
           />
         ))}
     </div>

@@ -5,15 +5,17 @@ type LetterBoxProps = {
   letter: string;
   status: BoxStatus;
   flipped: boolean;
+  flipDelay: number;
 };
 
-function LetterBox({ letter, status, flipped }: LetterBoxProps) {
+function LetterBox({ letter, status, flipped, flipDelay }: LetterBoxProps) {
   return (
     <div className={`${styles['letterbox-container']}`}>
       <div
         className={`${styles['letterbox-inner']} ${
           flipped ? styles['flipped'] : ''
         }`}
+        style={{ '--delay': `${flipDelay}s` } as React.CSSProperties}
       >
         <div className={`${styles['letterbox-front']} ${styles['default']}`}>
           {letter.toUpperCase()}

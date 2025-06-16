@@ -8,6 +8,7 @@
   width: 67.5px;
   height: 67.5px;
   transition: transform 0.6s ease;
+  transition-delay: var(--delay);
   transform-style: preserve-3d;
   position: relative;
 }
