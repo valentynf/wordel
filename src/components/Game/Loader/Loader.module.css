@@ -6,6 +6,7 @@
   height: 100vh;
   align-items: center;
   justify-content: center;
+  z-index: 3;
 }
 
 .loader {
@@ -19,5 +20,5 @@
 .loader-message {
   font-family: 'Libre Franklin Variable', sans-serif;
   font-size: 30px;
-  color: aliceblue;
+  color: #fff;
 }
