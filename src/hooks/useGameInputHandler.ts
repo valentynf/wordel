@@ -17,11 +17,14 @@ function useGameInputHandler(
 
   useEffect(() => {
     const handleInput = async (input: string): Promise<void> => {
-      if (isGettingWordRef.current || isCheckingWord) return;
+      if (isGettingWordRef.current || isCheckingWord) return; //no input if checking or getting a word
       const currentGuess = rows[currentRow].letters.join('');
       if (input === 'Enter' && currentGuess.length === 5) {
         if (currentGuess.toLowerCase() === answer.toLowerCase()) {
           dispatch({ type: 'submit-guess' });
+          setTimeout(() => {
+            dispatch({ type: 'set-view', payload: { view: 'end' } });
+          }, 2400);
           return;
         }
 
@@ -30,6 +33,11 @@ function useGameInputHandler(
           const isReal = await checkIfRealWord(currentGuess);
           if (!isReal) return;
           dispatch({ type: 'submit-guess' });
+          if (currentRow === 5) {
+            setTimeout(() => {
+              dispatch({ type: 'set-view', payload: { view: 'end' } });
+            }, 2400);
+          }
         } catch (err) {
           console.log(err);
         } finally {
