@@ -9,10 +9,10 @@
     transform: translateX(0);
   }
   10% {
-    transform: translateX(6px);
+    transform: translateX(5px);
   }
   20% {
-    transform: translateX(-6px);
+    transform: translateX(-5px);
   }
   30% {
     transform: translateX(6px);
@@ -27,10 +27,10 @@
     transform: translateX(-6px);
   }
   80% {
-    transform: translateX(6px);
+    transform: translateX(5px);
   }
   90% {
-    transform: translateX(-6px);
+    transform: translateX(-5px);
   }
   100% {
     transform: translateX(0);

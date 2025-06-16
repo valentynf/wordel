@@ -62,7 +62,15 @@ function useGameInputHandler(
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentRow, dispatch, rows, isCheckingWord, setIsCheckingWord, answer]);
+  }, [
+    currentRow,
+    dispatch,
+    rows,
+    isCheckingWord,
+    setIsCheckingWord,
+    answer,
+    setShakeRow,
+  ]);
 }
 
 export default useGameInputHandler;
