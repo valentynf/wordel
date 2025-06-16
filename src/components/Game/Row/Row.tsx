@@ -15,7 +15,12 @@ function Row({ letters, boxStatuses }: RowProps) {
         .padEnd(5)
         .split('')
         .map((letter, i) => (
-          <LetterBox key={i} letter={letter} status={boxStatuses[i]} />
+          <LetterBox
+            key={i}
+            letter={letter}
+            status={boxStatuses[i]}
+            flipped={boxStatuses[i] !== 'default'}
+          />
         ))}
     </div>
   );
