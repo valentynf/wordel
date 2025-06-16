@@ -7,7 +7,7 @@ import type {
 
 export const initialState: GameState = {
   hasWon: false,
-  answer: 'SHARK',
+  answer: 'shark',
   view: 'start',
   rows: Array(6)
     .fill(0)

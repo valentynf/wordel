@@ -1,5 +1,10 @@
 export type View = 'start' | 'game' | 'end';
-export type BoxStatus = 'correct' | 'present' | 'default' | 'wrong';
+export type BoxStatus =
+  | 'correct'
+  | 'present'
+  | 'default'
+  | 'wrong'
+  | 'highlighted';
 export type RowType = {
   letters: string[];
   statuses: BoxStatus[];
