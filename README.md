@@ -6,7 +6,6 @@ Wordel is a clone of a popular Wordle game from NY Times. Built using React, Typ
 
 ## Features
 
-- Match countries with their capitals to test your geographical knowledge.
 - Built with React for a dynamic and interactive user interface.
 - Utilizes TypeScript for static typing and improved code quality.
 - Powered by Vite for fast development and Hot Module Replacement (HMR).
@@ -62,6 +61,6 @@ This will launch the game in your default web browser.
 
 ## Author
 
-- [Valentyn](valentyn.filippov@gmail.com)
+- [Valentyn](https://github.com/valentynf)
 
 Feel free to reach out if you have any questions or suggestions!
