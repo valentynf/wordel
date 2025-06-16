@@ -84,7 +84,6 @@ export function reducer(
         ...prevState,
         currentRow: currentRow < 5 ? currentRow + 1 : currentRow,
         hasWon: isRightGuess ? true : false,
-        // view: currentRow === 5 || isRightGuess ? 'end' : prevState.view,
         rows: rows.map((row, i) =>
           i === currentRow ? { ...row, statuses: boxStatuses } : row
         ),

@@ -5,7 +5,8 @@ import { useGameContext } from './useGameContext';
 function useGameInputHandler(
   isGettingWord: boolean,
   isCheckingWord: boolean,
-  setIsCheckingWord: Dispatch<SetStateAction<boolean>>
+  setIsCheckingWord: Dispatch<SetStateAction<boolean>>,
+  setShakeRow: Dispatch<SetStateAction<number | null>>
 ) {
   const { state: gameData, dispatch } = useGameContext();
   const { rows, currentRow, answer } = gameData;
@@ -31,7 +32,11 @@ function useGameInputHandler(
         try {
           setIsCheckingWord(true);
           const isReal = await checkIfRealWord(currentGuess);
-          if (!isReal) return;
+          if (!isReal) {
+            setShakeRow(currentRow);
+            setTimeout(() => setShakeRow(null), 500);
+            return;
+          }
           dispatch({ type: 'submit-guess' });
           if (currentRow === 5) {
             setTimeout(() => {

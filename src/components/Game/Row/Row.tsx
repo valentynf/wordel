@@ -5,11 +5,16 @@ import type { BoxStatus } from '../../../types/appTypes.ts';
 type RowProps = {
   letters: string[];
   boxStatuses: BoxStatus[];
+  shouldShake: boolean;
 };
 
-function Row({ letters, boxStatuses }: RowProps) {
+function Row({ letters, boxStatuses, shouldShake }: RowProps) {
   return (
-    <div className={styles['row-container']}>
+    <div
+      className={`${styles['row-container']} ${
+        shouldShake ? styles['shake'] : ''
+      }`}
+    >
       {letters
         .join('')
         .padEnd(5)

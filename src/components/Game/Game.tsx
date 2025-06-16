@@ -10,8 +10,14 @@ function Game() {
   const { state: gameData, dispatch } = useGameContext();
   const { word: answer, isLoading: isGettingWord } = useRandomWord();
   const [isCheckingWord, setIsCheckingWord] = useState<boolean>(false);
+  const [shakeRow, setShakeRow] = useState<number | null>(null);
 
-  useGameInputHandler(isGettingWord, isCheckingWord, setIsCheckingWord);
+  useGameInputHandler(
+    isGettingWord,
+    isCheckingWord,
+    setIsCheckingWord,
+    setShakeRow
+  );
 
   useEffect(() => {
     dispatch({ type: 'set-answer', payload: { answer: answer.toLowerCase() } });
@@ -21,7 +27,12 @@ function Game() {
     <div className={styles['game-container']}>
       {isGettingWord && <Loader message="Getting a word" />}
       {gameData.rows.map((row, i) => (
-        <Row key={i} boxStatuses={row.statuses} letters={row.letters} />
+        <Row
+          key={i}
+          boxStatuses={row.statuses}
+          letters={row.letters}
+          shouldShake={shakeRow === i}
+        />
       ))}
     </div>
   );
