@@ -13,8 +13,8 @@ function Game() {
   const { word: answer, isLoading: isGettingWord } = useRandomWord();
   const [isCheckingWord, setIsCheckingWord] = useState<boolean>(false);
   const [shakeRow, setShakeRow] = useState<number | null>(null);
-  const [toastVisible, setToastVisible] = useState<boolean>(true);
-  const [toastMessage, setToastMessage] = useState<string>('message');
+  const [toastVisible, setToastVisible] = useState<boolean>(false);
+  const [toastMessage, setToastMessage] = useState<string>('');
 
   useGameInputHandler(
     isGettingWord,
