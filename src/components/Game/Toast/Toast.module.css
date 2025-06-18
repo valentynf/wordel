@@ -1,0 +1,21 @@
+.toast-container {
+  position: fixed;
+  bottom: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #f8f8f7;
+  color: black;
+  padding: 12px 20px;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 18px;
+  z-index: 1000;
+}
+
+.visible {
+  opacity: 1;
+  pointer-events: auto;
+}

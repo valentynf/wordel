@@ -6,7 +6,9 @@ function useGameInputHandler(
   isGettingWord: boolean,
   isCheckingWord: boolean,
   setIsCheckingWord: Dispatch<SetStateAction<boolean>>,
-  setShakeRow: Dispatch<SetStateAction<number | null>>
+  setShakeRow: Dispatch<SetStateAction<number | null>>,
+  setToastMessage: Dispatch<SetStateAction<string>>,
+  setToastVisible: Dispatch<SetStateAction<boolean>>
 ) {
   const { state: gameData, dispatch } = useGameContext();
   const { rows, currentRow, answer } = gameData;
@@ -20,11 +22,22 @@ function useGameInputHandler(
     const handleInput = async (input: string): Promise<void> => {
       if (isGettingWordRef.current || isCheckingWord) return; //no input if checking or getting a word
       const currentGuess = rows[currentRow].letters.join('');
-      if (input === 'Enter' && currentGuess.length < 5) {
-        setShakeRow(currentRow);
+      const shakeRow = (rowNumber: number) => {
+        setShakeRow(rowNumber);
         setTimeout(() => setShakeRow(null), 500);
+      };
+      function showToast(message: string) {
+        setToastMessage(message);
+        setToastVisible(true);
+        setTimeout(() => setToastVisible(false), 1000);
+      }
+
+      if (input === 'Enter' && currentGuess.length < 5) {
+        shakeRow(currentRow);
+        showToast('Not enough letters');
         return;
       }
+
       if (input === 'Enter' && currentGuess.length === 5) {
         if (currentGuess.toLowerCase() === answer.toLowerCase()) {
           dispatch({ type: 'submit-guess' });
@@ -38,8 +51,8 @@ function useGameInputHandler(
           setIsCheckingWord(true);
           const isReal = await checkIfRealWord(currentGuess);
           if (!isReal) {
-            setShakeRow(currentRow);
-            setTimeout(() => setShakeRow(null), 500);
+            shakeRow(currentRow);
+            showToast('Not in word list');
             return;
           }
           dispatch({ type: 'submit-guess' });
@@ -75,6 +88,8 @@ function useGameInputHandler(
     setIsCheckingWord,
     answer,
     setShakeRow,
+    setToastMessage,
+    setToastVisible,
   ]);
 }
 
