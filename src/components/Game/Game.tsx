@@ -5,6 +5,7 @@ import { useGameContext } from '../../hooks/useGameContext';
 import useRandomWord from '../../hooks/useRandomWord';
 import useGameInputHandler from '../../hooks/useGameInputHandler';
 import Loader from './Loader/Loader';
+import Keyboard from './Keyboard/Keyboard';
 
 function Game() {
   const { state: gameData, dispatch } = useGameContext();
@@ -34,6 +35,7 @@ function Game() {
           shouldShake={shakeRow === i}
         />
       ))}
+      <Keyboard />
     </div>
   );
 }

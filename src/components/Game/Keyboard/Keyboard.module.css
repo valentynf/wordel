@@ -1,0 +1,6 @@
+.keyboard-row1,
+.keyboard-row2,
+.keyboard-row3 {
+  display: flex;
+  flex-direction: row;
+}
