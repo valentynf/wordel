@@ -6,18 +6,23 @@ import useRandomWord from '../../hooks/useRandomWord';
 import useGameInputHandler from '../../hooks/useGameInputHandler';
 import Loader from './Loader/Loader';
 import Keyboard from './Keyboard/Keyboard';
+import Toast from './Toast/Toast';
 
 function Game() {
   const { state: gameData, dispatch } = useGameContext();
   const { word: answer, isLoading: isGettingWord } = useRandomWord();
   const [isCheckingWord, setIsCheckingWord] = useState<boolean>(false);
   const [shakeRow, setShakeRow] = useState<number | null>(null);
+  const [toastVisible, setToastVisible] = useState<boolean>(true);
+  const [toastMessage, setToastMessage] = useState<string>('message');
 
   useGameInputHandler(
     isGettingWord,
     isCheckingWord,
     setIsCheckingWord,
-    setShakeRow
+    setShakeRow,
+    setToastMessage,
+    setToastVisible
   );
 
   useEffect(() => {
@@ -26,6 +31,7 @@ function Game() {
 
   return (
     <div className={styles['game-container']}>
+      <Toast message={toastMessage} visible={toastVisible} />
       {isGettingWord && <Loader message="Getting a word" />}
       {gameData.rows.map((row, i) => (
         <Row
