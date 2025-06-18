@@ -20,6 +20,11 @@ function useGameInputHandler(
     const handleInput = async (input: string): Promise<void> => {
       if (isGettingWordRef.current || isCheckingWord) return; //no input if checking or getting a word
       const currentGuess = rows[currentRow].letters.join('');
+      if (input === 'Enter' && currentGuess.length < 5) {
+        setShakeRow(currentRow);
+        setTimeout(() => setShakeRow(null), 500);
+        return;
+      }
       if (input === 'Enter' && currentGuess.length === 5) {
         if (currentGuess.toLowerCase() === answer.toLowerCase()) {
           dispatch({ type: 'submit-guess' });
