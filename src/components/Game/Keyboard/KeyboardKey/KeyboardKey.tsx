@@ -11,7 +11,7 @@ function KeyboardKey({ keyValue }: KeyboardKeyProps) {
         keyValue === 'ENTER' || keyValue === '⌫' ? styles['phat'] : ''
       }`}
     >
-      {keyValue}
+      {keyValue.toUpperCase()}
     </div>
   );
 }

@@ -2,14 +2,22 @@
   font-family: 'Libre Franklin', sans-serif;
   color: #f8f8f8;
   font-size: 24px;
-  height: 56px;
-  width: 32px;
+  height: 70px;
+  width: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   background-color: #828384;
   border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+  .key-container {
+    width: 32px;
+    height: 54px;
+    font-size: 16px;
+  }
 }
 
 .default {
@@ -31,4 +39,11 @@
 .phat {
   padding: 0 14px 0 14px;
   font-size: 16px;
+}
+
+@media (max-width: 600px) {
+  .phat {
+    padding: 0 10px 0 10px;
+    font-size: 14px;
+  }
 }
