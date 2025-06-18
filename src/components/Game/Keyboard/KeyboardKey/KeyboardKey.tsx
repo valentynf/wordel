@@ -5,7 +5,15 @@ type KeyboardKeyProps = {
 };
 
 function KeyboardKey({ keyValue }: KeyboardKeyProps) {
-  return <div className={styles['key-container']}>{keyValue}</div>;
+  return (
+    <div
+      className={`${styles['key-container']} ${
+        keyValue === 'ENTER' || keyValue === '⌫' ? styles['phat'] : ''
+      }`}
+    >
+      {keyValue}
+    </div>
+  );
 }
 
 export default KeyboardKey;
