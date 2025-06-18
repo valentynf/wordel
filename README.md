@@ -53,7 +53,7 @@ This will launch the game in your default web browser.
 
     ⬛ Gray: Letter not in the word at all.
 
-- Only real English words are accepted.
+- Only real 5-letters English words are accepted.
 
 - Proper nouns (names, brands, etc.) are not allowed.
 
