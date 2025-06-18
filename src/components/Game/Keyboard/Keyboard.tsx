@@ -1,36 +1,31 @@
+import { useGameContext } from '../../../hooks/useGameContext';
+import type { RowKey } from '../../../types/appTypes';
 import styles from './Keyboard.module.css';
 import KeyboardKey from './KeyboardKey/KeyboardKey';
 
-type Keyboard = {
-  row1: string[];
-  row2: string[];
-  row3: string[];
-};
-
-const keyboardRows: Keyboard = {
+const keyboardRows: Record<RowKey, string[]> = {
   row1: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
   row2: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
   row3: ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '⌫'],
 };
 
 function Keyboard() {
+  const { state: gameData } = useGameContext();
+  const rowKeys: RowKey[] = ['row1', 'row2', 'row3'];
+
   return (
     <div className={styles['keyboard-container']}>
-      <div className={styles['keyboard-row1']}>
-        {keyboardRows.row1.map((key, i) => (
-          <KeyboardKey key={i} keyValue={key} />
-        ))}
-      </div>
-      <div className={styles['keyboard-row2']}>
-        {keyboardRows.row2.map((key, i) => (
-          <KeyboardKey key={i + 10} keyValue={key} />
-        ))}
-      </div>
-      <div className={styles['keyboard-row3']}>
-        {keyboardRows.row3.map((key, i) => (
-          <KeyboardKey key={i + 19} keyValue={key} />
-        ))}
-      </div>
+      {rowKeys.map((rowKey, i) => (
+        <div key={i} className={styles[`keyboard-${rowKey}`]}>
+          {keyboardRows[rowKey].map((key, j) => (
+            <KeyboardKey
+              key={j}
+              keyValue={key}
+              status={gameData.letterStatuses[key.toLowerCase()]}
+            />
+          ))}
+        </div>
+      ))}
     </div>
   );
 }

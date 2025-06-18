@@ -1,10 +1,12 @@
+import type { BoxStatus } from '../../../../types/appTypes';
 import styles from './KeyboardKey.module.css';
 
 type KeyboardKeyProps = {
   keyValue: string;
+  status: BoxStatus;
 };
 
-function KeyboardKey({ keyValue }: KeyboardKeyProps) {
+function KeyboardKey({ keyValue, status }: KeyboardKeyProps) {
   const handleClick = () => {
     const event = new KeyboardEvent('keydown', {
       key: keyValue === '⌫' ? 'Backspace' : keyValue,
@@ -17,7 +19,7 @@ function KeyboardKey({ keyValue }: KeyboardKeyProps) {
       onClick={handleClick}
       className={`${styles['key-container']} ${
         keyValue === 'Enter' || keyValue === '⌫' ? styles['phat'] : ''
-      }`}
+      } ${styles[`${status}`]}`}
     >
       {keyValue.toUpperCase()}
     </button>

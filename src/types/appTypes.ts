@@ -15,6 +15,7 @@ export type GameState = {
   view: View;
   rows: RowType[];
   currentRow: number;
+  letterStatuses: Record<string, BoxStatus>;
 };
 export type GameStateReducerAction =
   | {
@@ -38,3 +39,4 @@ export type GameStateReducerAction =
       type: 'set-answer';
       payload: { answer: string };
     };
+export type RowKey = 'row1' | 'row2' | 'row3';
