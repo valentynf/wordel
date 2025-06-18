@@ -5,14 +5,22 @@ type KeyboardKeyProps = {
 };
 
 function KeyboardKey({ keyValue }: KeyboardKeyProps) {
+  const handleClick = () => {
+    const event = new KeyboardEvent('keydown', {
+      key: keyValue === '⌫' ? 'Backspace' : keyValue,
+      bubbles: true,
+    });
+    window.dispatchEvent(event);
+  };
   return (
-    <div
+    <button
+      onClick={handleClick}
       className={`${styles['key-container']} ${
-        keyValue === 'ENTER' || keyValue === '⌫' ? styles['phat'] : ''
+        keyValue === 'Enter' || keyValue === '⌫' ? styles['phat'] : ''
       }`}
     >
       {keyValue.toUpperCase()}
-    </div>
+    </button>
   );
 }
 

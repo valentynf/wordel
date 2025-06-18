@@ -12,14 +12,6 @@
   border-radius: 4px;
 }
 
-@media (max-width: 600px) {
-  .key-container {
-    width: 32px;
-    height: 54px;
-    font-size: 16px;
-  }
-}
-
 .default {
   background-color: #828384;
 }
@@ -42,6 +34,11 @@
 }
 
 @media (max-width: 600px) {
+  .key-container {
+    width: 34px;
+    height: 54px;
+    font-size: 16px;
+  }
   .phat {
     padding: 0 10px 0 10px;
     font-size: 14px;

@@ -10,7 +10,7 @@ type Keyboard = {
 const keyboardRows: Keyboard = {
   row1: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
   row2: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-  row3: ['ENTER', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '⌫'],
+  row3: ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '⌫'],
 };
 
 function Keyboard() {
