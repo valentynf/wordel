@@ -16,6 +16,9 @@ export const initialState: GameState = {
       statuses: Array(5).fill('default' as BoxStatus),
     })),
   currentRow: 0,
+  letterStatuses: Object.fromEntries(
+    'abcdefghijklmnopqrstuvwxyz'.split('').map((l) => [l, 'default'])
+  ),
 };
 
 export function reducer(
@@ -62,6 +65,7 @@ export function reducer(
       const isRightGuess: boolean = answer === lettersGuess.join('');
       const boxStatuses: BoxStatus[] = Array(5).fill('wrong');
       const lettersRecord: Record<string, number> = {};
+      const updatedLetterStatuses = { ...prevState.letterStatuses };
       lettersAnswer.forEach((char) => {
         lettersRecord[char] = (lettersRecord[char] || 0) + 1;
       });
@@ -80,6 +84,23 @@ export function reducer(
         }
       });
 
+      lettersGuess.forEach((letter, i) => {
+        const currentStatus = updatedLetterStatuses[letter];
+        const newStatus = boxStatuses[i];
+
+        const rank: { [key in BoxStatus]: number } = {
+          default: 0,
+          highlighted: 0,
+          wrong: 1,
+          present: 2,
+          correct: 3,
+        };
+
+        if (!currentStatus || rank[newStatus] > rank[currentStatus]) {
+          updatedLetterStatuses[letter] = newStatus;
+        }
+      });
+
       return {
         ...prevState,
         currentRow: currentRow < 5 ? currentRow + 1 : currentRow,
@@ -87,6 +108,7 @@ export function reducer(
         rows: rows.map((row, i) =>
           i === currentRow ? { ...row, statuses: boxStatuses } : row
         ),
+        letterStatuses: updatedLetterStatuses,
       };
     }
 
