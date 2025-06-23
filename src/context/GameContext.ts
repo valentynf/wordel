@@ -4,22 +4,7 @@ import type {
   GameState,
   GameStateReducerAction,
 } from '../types/appTypes';
-
-export const initialState: GameState = {
-  hasWon: false,
-  answer: 'shark',
-  view: 'start',
-  rows: Array(6)
-    .fill(0)
-    .map(() => ({
-      letters: [],
-      statuses: Array(5).fill('default' as BoxStatus),
-    })),
-  currentRow: 0,
-  letterStatuses: Object.fromEntries(
-    'abcdefghijklmnopqrstuvwxyz'.split('').map((l) => [l, 'default'])
-  ),
-};
+import { initialState } from '../config';
 
 export function reducer(
   prevState: GameState,
@@ -66,6 +51,7 @@ export function reducer(
       const boxStatuses: BoxStatus[] = Array(5).fill('wrong');
       const lettersRecord: Record<string, number> = {};
       const updatedLetterStatuses = { ...prevState.letterStatuses };
+
       lettersAnswer.forEach((char) => {
         lettersRecord[char] = (lettersRecord[char] || 0) + 1;
       });
@@ -104,7 +90,7 @@ export function reducer(
       return {
         ...prevState,
         currentRow: currentRow < 5 ? currentRow + 1 : currentRow,
-        hasWon: isRightGuess ? true : false,
+        hasWon: isRightGuess,
         rows: rows.map((row, i) =>
           i === currentRow ? { ...row, statuses: boxStatuses } : row
         ),
