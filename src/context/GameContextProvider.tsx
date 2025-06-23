@@ -1,5 +1,6 @@
 import { useReducer, type ReactNode } from 'react';
-import GameContext, { initialState, reducer } from './GameContext';
+import GameContext, { reducer } from './GameContext';
+import { initialState } from '../config';
 
 function GameContextProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);

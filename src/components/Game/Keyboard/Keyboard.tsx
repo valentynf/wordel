@@ -1,13 +1,8 @@
+import { keyboardRows } from '../../../config';
 import { useGameContext } from '../../../hooks/useGameContext';
 import type { RowKey } from '../../../types/appTypes';
 import styles from './Keyboard.module.css';
 import KeyboardKey from './KeyboardKey/KeyboardKey';
-
-const keyboardRows: Record<RowKey, string[]> = {
-  row1: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-  row2: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-  row3: ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '⌫'],
-};
 
 function Keyboard() {
   const { state: gameData } = useGameContext();

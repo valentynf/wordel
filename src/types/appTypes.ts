@@ -33,7 +33,11 @@ export type GameStateReducerAction =
       type: 'submit-guess';
     }
   | {
-      type: 'try-again';
+      type: 'new-game';
+    }
+  | {
+      type: 'continue-game';
+      payload: { loadedGameState: GameState };
     }
   | {
       type: 'set-answer';

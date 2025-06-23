@@ -98,11 +98,17 @@ export function reducer(
       };
     }
 
+    case 'continue-game': {
+      const { loadedGameState } = action.payload;
+      return { ...loadedGameState };
+    }
+
+    case 'new-game': {
+      return { ...initialState, view: 'game' };
+    }
+
     case 'set-view':
       return { ...prevState, view: action.payload.view };
-
-    case 'try-again':
-      return { ...initialState, view: 'game' };
 
     case 'set-answer': {
       const { answer } = action.payload;

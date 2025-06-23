@@ -11,7 +11,7 @@ function EndScreen() {
         {hasWon ? 'CONGRATULATIONS' : 'GAME OVER'}
       </p>
       <button
-        onClick={() => dispatch({ type: 'try-again' })}
+        onClick={() => dispatch({ type: 'new-game' })}
         className={styles['play-again-button']}
       >
         Play again

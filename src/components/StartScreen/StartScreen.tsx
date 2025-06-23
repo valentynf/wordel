@@ -1,8 +1,17 @@
-import { useGameContext } from '../../hooks/useGameContext';
+import { useEffect, useState } from 'react';
+import Menu from './Menu/Menu';
 import styles from './StartScreen.module.css';
+import { LOCAL_STORAGE_KEY } from '../../config';
+import type { GameState } from '../../types/appTypes';
 
 function StartScreen() {
-  const { dispatch } = useGameContext();
+  const [prevGameState, setPrevGameState] = useState<GameState | null>(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+    console.log(stored);
+    if (stored) setPrevGameState(JSON.parse(stored));
+  }, []);
 
   return (
     <div className={styles['start-screen-container']}>
@@ -13,16 +22,7 @@ function StartScreen() {
           Get 6 chances to guess a 5-letter word
         </p>
       </div>
-      <div className={styles['menu-container']}>
-        <button
-          className={styles['play-button']}
-          onClick={() =>
-            dispatch({ type: 'set-view', payload: { view: 'game' } })
-          }
-        >
-          Play
-        </button>
-      </div>
+      {prevGameState ? <Menu prevGameState={prevGameState} /> : <Menu />}
     </div>
   );
 }
