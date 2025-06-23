@@ -10,7 +10,9 @@ import Toast from './Toast/Toast';
 
 function Game() {
   const { state: gameData, dispatch } = useGameContext();
-  const { word: answer, isLoading: isGettingWord } = useRandomWord();
+  const { shouldLoadWord } = gameData;
+  const { word: answer, isLoading: isGettingWord } =
+    useRandomWord(shouldLoadWord);
   const [isCheckingWord, setIsCheckingWord] = useState<boolean>(false);
   const [shakeRow, setShakeRow] = useState<number | null>(null);
   const [toastVisible, setToastVisible] = useState<boolean>(false);
@@ -26,8 +28,12 @@ function Game() {
   );
 
   useEffect(() => {
-    dispatch({ type: 'set-answer', payload: { answer: answer.toLowerCase() } });
-  }, [answer, dispatch]);
+    if (shouldLoadWord && answer)
+      dispatch({
+        type: 'set-answer',
+        payload: { answer: answer.toLowerCase() },
+      });
+  }, [answer, dispatch, shouldLoadWord]);
 
   return (
     <div className={styles['game-container']}>

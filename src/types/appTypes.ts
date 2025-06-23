@@ -16,6 +16,7 @@ export type GameState = {
   rows: RowType[];
   currentRow: number;
   letterStatuses: Record<string, BoxStatus>;
+  shouldLoadWord: boolean;
 };
 export type GameStateReducerAction =
   | {
@@ -26,14 +27,17 @@ export type GameStateReducerAction =
       type: 'remove-letter';
     }
   | {
-      type: 'set-view';
-      payload: { view: View };
-    }
-  | {
       type: 'submit-guess';
     }
   | {
-      type: 'try-again';
+      type: 'new-game';
+    }
+  | {
+      type: 'game-end';
+    }
+  | {
+      type: 'continue-game';
+      payload: { loadedGameState: GameState };
     }
   | {
       type: 'set-answer';
