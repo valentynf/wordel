@@ -19,6 +19,7 @@ export const initialState: GameState = {
   letterStatuses: Object.fromEntries(
     'abcdefghijklmnopqrstuvwxyz'.split('').map((l) => [l, 'default'])
   ),
+  shouldLoadWord: true,
 };
 
 export const keyboardRows: Record<RowKey, string[]> = {

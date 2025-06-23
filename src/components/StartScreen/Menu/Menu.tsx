@@ -9,7 +9,6 @@ type MenuProps = {
 
 function Menu({ prevGameState }: MenuProps) {
   const { dispatch } = useGameContext();
-  console.log(prevGameState, 'Menu');
 
   return (
     <div className={styles['menu-container']}>
@@ -22,7 +21,6 @@ function Menu({ prevGameState }: MenuProps) {
                 type: 'continue-game',
                 payload: { loadedGameState: prevGameState },
               });
-              localStorage.removeItem(LOCAL_STORAGE_KEY); // not sure it really makes sense, leaving it for now
             }}
           >
             Continue

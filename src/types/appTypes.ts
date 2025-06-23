@@ -16,6 +16,7 @@ export type GameState = {
   rows: RowType[];
   currentRow: number;
   letterStatuses: Record<string, BoxStatus>;
+  shouldLoadWord: boolean;
 };
 export type GameStateReducerAction =
   | {
@@ -34,6 +35,9 @@ export type GameStateReducerAction =
     }
   | {
       type: 'new-game';
+    }
+  | {
+      type: 'game-end';
     }
   | {
       type: 'continue-game';

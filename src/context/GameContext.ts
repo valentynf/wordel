@@ -100,12 +100,15 @@ export function reducer(
 
     case 'continue-game': {
       const { loadedGameState } = action.payload;
-      return { ...loadedGameState };
+      return { ...loadedGameState, shouldLoadWord: false };
     }
 
     case 'new-game': {
       return { ...initialState, view: 'game' };
     }
+
+    case 'game-end':
+      return { ...prevState, view: 'end' };
 
     case 'set-view':
       return { ...prevState, view: action.payload.view };

@@ -1,6 +1,7 @@
 import { useEffect, useRef, type Dispatch, type SetStateAction } from 'react';
 import { checkIfRealWord } from '../api/wordsApi';
 import { useGameContext } from './useGameContext';
+import { LOCAL_STORAGE_KEY } from '../config';
 
 function useGameInputHandler(
   isGettingWord: boolean,
@@ -42,7 +43,8 @@ function useGameInputHandler(
         if (currentGuess.toLowerCase() === answer.toLowerCase()) {
           dispatch({ type: 'submit-guess' });
           setTimeout(() => {
-            dispatch({ type: 'set-view', payload: { view: 'end' } });
+            dispatch({ type: 'game-end' });
+            localStorage.removeItem(LOCAL_STORAGE_KEY);
           }, 2400);
           return;
         }
@@ -58,7 +60,8 @@ function useGameInputHandler(
           dispatch({ type: 'submit-guess' });
           if (currentRow === 5) {
             setTimeout(() => {
-              dispatch({ type: 'set-view', payload: { view: 'end' } });
+              dispatch({ type: 'game-end' });
+              localStorage.removeItem(LOCAL_STORAGE_KEY);
             }, 2400);
           }
         } catch (err) {
