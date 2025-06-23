@@ -9,7 +9,6 @@ function StartScreen() {
 
   useEffect(() => {
     const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
-    console.log(stored);
     if (stored) setPrevGameState(JSON.parse(stored));
   }, []);
 

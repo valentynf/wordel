@@ -110,9 +110,6 @@ export function reducer(
     case 'game-end':
       return { ...prevState, view: 'end' };
 
-    case 'set-view':
-      return { ...prevState, view: action.payload.view };
-
     case 'set-answer': {
       const { answer } = action.payload;
       return { ...prevState, answer: answer };

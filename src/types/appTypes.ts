@@ -27,10 +27,6 @@ export type GameStateReducerAction =
       type: 'remove-letter';
     }
   | {
-      type: 'set-view';
-      payload: { view: View };
-    }
-  | {
       type: 'submit-guess';
     }
   | {
